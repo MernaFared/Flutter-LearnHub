@@ -1,0 +1,42 @@
+class ImagePath {
+  static const ellipse = 'assets/images/ellipse.png';
+  static const welcome = 'assets/images/welcome.png';
+  static const getStart = 'assets/images/start.png';
+  static const boardingOne = 'assets/images/boarding_one.png';
+  static const boardingTwo = 'assets/images/boarding_two.png';
+  static const boardingThree = 'assets/images/boarding_three.png';
+  static const circlePart1 = 'assets/images/circle_part_one.png';
+  static const circlePart2 = 'assets/images/circle_part_two.png';
+  static const login = 'assets/images/login.png';
+  static const botany = 'assets/images/botany.jpg';
+  static const anatomy = 'assets/images/anatomy.jpg';
+  static const marketing = 'assets/images/marketing.jpg';
+  static const programming = 'assets/images/programming.jpg';
+  static const art = 'assets/images/art.jpg';
+  static const graphic = 'assets/images/graphic.jpg';
+  static const music = 'assets/images/music.jpg';
+  static const photography = 'assets/images/photography.jpg';
+  static const menu = 'assets/images/menu.png';
+  static const menuBtn = 'assets/images/menu_btn.png';
+  static const ellipseHome = 'assets/images/ellipse_home.png';
+  static const avatar = 'assets/images/avatar.png';
+  static const search = 'assets/images/search.png';
+  static const home = 'assets/images/home.png';
+  static const courses = 'assets/images/courses.png';
+  static const bottomSearch = 'assets/images/bottom_search.png';
+  static const bell = 'assets/images/bell.png';
+  static const user = 'assets/images/user.png';
+  static const rectangle = 'assets/images/rectangle.png';
+  static const shape = 'assets/images/shape.png';
+  static const person = 'assets/images/person.png';
+  static const celebrate = 'assets/images/celebrate.png';
+  static const notification = 'assets/images/notification.png';
+  static const avatarNot = 'assets/images/avatar_not.png';
+  static const planet = 'assets/images/planet.png';
+  static const slider = 'assets/images/slider.png';
+  static const edit = 'assets/images/edit.png';
+  static const student = 'assets/images/student.png';
+  static const comunity = 'assets/images/comunity.png';
+
+  ImagePath._();
+}
