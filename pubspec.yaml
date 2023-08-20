@@ -44,6 +44,8 @@ dependencies:
   hexcolor: ^2.0.7
   dio: ^4.0.6
   image_picker: ^0.8.7+1
+  shared_preferences:
+  fluttertoast:
 
 
 dev_dependencies:
@@ -76,7 +78,7 @@ flutter:
       - family: poppins bold
         fonts:
           - asset: assets/fonts/Poppins-Bold.ttf
-      - family: poppins light
+
       - family: IconBroken
         fonts:
           - asset: assets/fonts/Poppins-Light.ttf

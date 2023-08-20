@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation_project/logic/app%20cubit.dart';
+import 'package:graduation_project/logic/auth/auth_cubit.dart';
+import 'package:graduation_project/logic/interests/interests_cubit.dart';
 import 'package:graduation_project/presentation/screens/about_us_screen.dart';
 import 'package:graduation_project/presentation/screens/home_screens/course_details1.dart';
 import 'package:graduation_project/presentation/screens/home_screens/course_details2.dart';
@@ -24,10 +26,30 @@ import 'package:graduation_project/presentation/screens/on_boarding_screen.dart'
 import 'package:graduation_project/presentation/screens/register_screen.dart';
 import 'package:graduation_project/presentation/screens/screen1.dart';
 
+import 'core/bloc_observer.dart';
+import 'core/cash_helper.dart';
+import 'core/constants.dart';
 import 'logic/instructor/instructor cubit.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await CacheHelper.init();
+  token = CacheHelper.getData(key: 'token');
+  instructortoken = CacheHelper.getData(key: 'instructortoken');
+
+  Instructor_id=CacheHelper.getData(key:'instructor_id');
+  Student_id=CacheHelper.getData(key:'student_id');
+
+  debugPrint("token :: $token");
+  debugPrint("InstructorId :: $Instructor_id");
+
+
+  Bloc.observer = MyBlocObserver();
+
   runApp(const MyApp());
+
+
+  
 }
 
 class MyApp extends StatelessWidget {
@@ -36,6 +58,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    String  x = Screen1.id ; //IntialRout
+    if (Instructor_id != null && instructortoken != null){
+      x = HomeScreenInstructor.id;
+    }
+    if (Student_id != null && token != null){
+      x = MainLayoutScreen.id;
+    }
     return MultiBlocProvider(
      providers: [
        BlocProvider(
@@ -43,6 +72,12 @@ class MyApp extends StatelessWidget {
        ),
        BlocProvider(
          create: (BuildContext context) => InstructorCubit(),
+       ),
+       BlocProvider(
+         create: (BuildContext context) => AuthCubit(),
+       ),
+       BlocProvider(
+         create: (BuildContext context) => InterestsCubit(),
        )
      ],
       child: ScreenUtilInit(
@@ -64,11 +99,11 @@ class MyApp extends StatelessWidget {
               ),
             ),
             debugShowCheckedModeBanner: false,
-            initialRoute: Screen1.id,
+            initialRoute: x,
             routes: {
               Screen1.id: (context) => const Screen1(),
               OnBoardingScreen.id: (context) => const OnBoardingScreen(),
-              RegisterScreen.id: (context) => const RegisterScreen(),
+              RegisterScreen.id: (context) => const RegisterScreen(userType: "student",),
               LoginScreen.id: (context) => const LoginScreen(userType: 'student',),
               InterestsScreen.id: (context) => const InterestsScreen(),
               MainLayoutScreen.id: (context) => const MainLayoutScreen(),

@@ -71,30 +71,30 @@ class CourseDetails1 extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Stack(
-            children: [
-              const Image(image: AssetImage(ImagePath.shape)),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                child: const Image(
-                  image: AssetImage(ImagePath.rectangle),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0.w),
-                child: const Align(
-                  alignment: AlignmentDirectional.bottomEnd,
-                  child: Image(
-                    image: AssetImage(ImagePath.person),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                const Image(image: AssetImage(ImagePath.shape)),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+                  child: const Image(
+                    image: AssetImage(ImagePath.rectangle),
                   ),
                 ),
-              )
-            ],
-          ),
-          Expanded(
-            child: Container(
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0.w),
+                  child: const Align(
+                    alignment: AlignmentDirectional.bottomEnd,
+                    child: Image(
+                      image: AssetImage(ImagePath.person),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Container(
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -162,72 +162,72 @@ class CourseDetails1 extends StatelessWidget {
                     SizedBox(
                       height: 60.h,
                     ),
-                    Expanded(
-                      child: ListView.separated(
-                        physics: const BouncingScrollPhysics(),
-                        itemBuilder: (context, index) =>
-                            customCourseContent(courseContentModelList[index]),
-                        separatorBuilder: (context, index) => SizedBox(
-                          height: 20.h,
-                        ),
-                        itemCount: courseContentModelList.length,
+                    ListView.separated(
+                      shrinkWrap: true,
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (context, index) =>
+                          customCourseContent(courseContentModelList[index]),
+                      separatorBuilder: (context, index) => SizedBox(
+                        height: 20.h,
                       ),
+                      itemCount: courseContentModelList.length,
                     )
                   ],
                 ),
               ),
             ),
+
+          ],
+        ),
+      ),
+      bottomNavigationBar:  Container(
+        width: double.infinity.w,
+        height: 100.h,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(
+                2.w,
+                0.h,
+              ),
+              blurRadius: 4.r,
+              color: Colors.black.withOpacity(0.25),
+            ),
+          ],
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(17.r),
+            topRight: Radius.circular(17.r),
           ),
-          Container(
-            width: double.infinity.w,
-            height: 100.h,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(
-                    2.w,
-                    0.h,
-                  ),
-                  blurRadius: 4.r,
-                  color: Colors.black.withOpacity(0.25),
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12.0.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 85.w,
+                height: 50.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.00.r),
+                  color: AppColors.bottomButton,
                 ),
-              ],
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(17.r),
-                topRight: Radius.circular(17.r),
+                child: const Icon(Icons.star_border),
               ),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.0.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 85.w,
-                    height: 50.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.00.r),
-                      color: AppColors.bottomButton,
-                    ),
-                    child: const Icon(Icons.star_border),
-                  ),
-                  SizedBox(
-                    width: 30.w,
-                  ),
-                  Expanded(
-                    child: customElevatedButton(
-                      onPressed: () {
-                        navigateTo(context, const StartSuccessScreen());
-                      },
-                      text: 'Enroll',
-                    ),
-                  )
-                ],
+              SizedBox(
+                width: 30.w,
               ),
-            ),
-          )
-        ],
+              Expanded(
+                child: customElevatedButton(
+                  onPressed: () {
+                    navigateTo(context, const StartSuccessScreen());
+                  },
+                  text: 'Enroll',
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -385,33 +385,29 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: 24.00.h,
                     ),
-                    SizedBox(
-                      height: 165.h,
-                      width: double.infinity.w,
-                      child: SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        child: GridView.count(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          crossAxisCount: 2,
-                          childAspectRatio: 1.5,
-                          crossAxisSpacing: 17,
-                          mainAxisSpacing: 28,
-                          children: List.generate(
-                            exploreCourseModelList.length,
-                                (index) =>
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      navigateTo(context, const CourseDetails3());
-                                    });
-                                  },
-                                  child: exploreCourseItem(
-                                      exploreCourseModelList[index]),
-                                ),
-                          ),
-                        ),
+                    GridView.count(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 2,
+                      childAspectRatio: 1.5,
+                      crossAxisSpacing: 17,
+                      mainAxisSpacing: 28,
+                      children: List.generate(
+                        exploreCourseModelList.length,
+                            (index) =>
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  navigateTo(context, const CourseDetails3());
+                                });
+                              },
+                              child: exploreCourseItem(
+                                  exploreCourseModelList[index]),
+                            ),
                       ),
+                    ),
+                    SizedBox(
+                      height: 20.00.h,
                     ),
                   ],
                 ),

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/app_theme/app_colors.dart';
 import '../../../../core/assets_path/font_path.dart';
 import '../../../../core/assets_path/images_path.dart';
+import '../../../../logic/instructor/instructor cubit.dart';
 import '../../../../models/instructor_course_model.dart';
 import '../../../widgets/components.dart';
 
@@ -15,27 +16,28 @@ class InstructorHomeScreen extends StatefulWidget {
 }
 
 class _InstructorHomeScreenState extends State<InstructorHomeScreen> {
-  List<InstructorCourseModel> instructorCourseModelList = [
-    InstructorCourseModel(
-      image: ImagePath.photography,
-      text: 'Intro to Studying Human',
-      rate: '0.4',
-    ),
-    InstructorCourseModel(
-      image: ImagePath.anatomy,
-      text: 'Medical Terminology',
-      rate: '0.5',
-    ),
-    InstructorCourseModel(
-      image: ImagePath.botany,
-      text: 'Fundamentals',
-      rate: '0.3',
-    ),
-  ];
+  // List<InstructorCourseModel> instructorCourseModelList = [
+  //   InstructorCourseModel(
+  //     image: ImagePath.photography,
+  //     text: 'Intro to Studying Human',
+  //     rate: '0.4',
+  //   ),
+  //   InstructorCourseModel(
+  //     image: ImagePath.anatomy,
+  //     text: 'Medical Terminology',
+  //     rate: '0.5',
+  //   ),
+  //   InstructorCourseModel(
+  //     image: ImagePath.botany,
+  //     text: 'Fundamentals',
+  //     rate: '0.3',
+  //   ),
+  // ];
 
 
   @override
   Widget build(BuildContext context) {
+    var cubit = InstructorCubit.get(context);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -80,7 +82,7 @@ class _InstructorHomeScreenState extends State<InstructorHomeScreen> {
                     Padding(
                       padding: EdgeInsetsDirectional.only(start: 42.0.w),
                       child: Text(
-                        'Bella Almeida',
+                        '${cubit.instructorDataModel!.firstName} ${cubit.instructorDataModel!.lastName}',
                         style: TextStyle(
                           fontFamily: FontPath.poppinsBold,
                           fontSize: 30.sp,
@@ -133,7 +135,7 @@ class _InstructorHomeScreenState extends State<InstructorHomeScreen> {
                       height: 20.00.h,
                     ),
                     Text(
-                      'Your  Courses',
+                      'My Courses',
                       style: TextStyle(
                         fontFamily: FontPath.poppinsBold,
                         fontSize: 20.sp,
@@ -148,13 +150,13 @@ class _InstructorHomeScreenState extends State<InstructorHomeScreen> {
                       child: ListView.separated(
                         physics: const BouncingScrollPhysics(),
                         itemBuilder: (context, index) => instructorCourseItem(
-                            instructorCourseModelList[index],
+                             cubit.inctructorcourses[index],
                             context
                         ),
                         separatorBuilder: (context, index) => SizedBox(
                           height: 20.h,
                         ),
-                        itemCount: instructorCourseModelList.length,
+                        itemCount: cubit.inctructorcourses.length,
                       ),
                     ),
                   ],

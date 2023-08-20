@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graduation_project/core/app_theme/app_colors.dart';
 import 'package:graduation_project/core/assets_path/images_path.dart';
 import 'package:graduation_project/models/category_model.dart';
@@ -21,6 +22,7 @@ import 'package:graduation_project/presentation/screens/home_screens/course_deta
 import 'package:graduation_project/presentation/widgets/custom_timer_progress.dart';
 
 import '../../core/assets_path/font_path.dart';
+import '../../models/instructor/instructorCoursesModel.dart';
 import '../screens/home_screens/instructor_course_details.dart';
 import '../screens/instructor_screens/course_students/course_students_screen.dart';
 
@@ -1035,7 +1037,7 @@ Widget sliderComponent(SliderModel sliderModel) => Row(
 Widget instructorCourseItem(InstructorCourseModel instructorCourseModel,BuildContext context) =>
     Container(
       width: double.infinity,
-      height: 200.h,
+      height: 140.h,
       decoration: BoxDecoration(
         color: AppColors.backgroundColor2,
         borderRadius: BorderRadius.circular(10.r),
@@ -1050,178 +1052,187 @@ Widget instructorCourseItem(InstructorCourseModel instructorCourseModel,BuildCon
           ),
         ],
       ),
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsetsDirectional.only(
-              top: 10.00.h,
-              start: 10.00.w,
-              end: 10.00.w,
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 120.w,
-                  height: 120.h,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    image: DecorationImage(
-                      image: AssetImage(
-                        instructorCourseModel.image,
-                      ),
-                      fit: BoxFit.cover,
-                    ),
-                    border: Border.all(
-                      width: 1.w,
-                      color: Colors.grey,
-                    ),
-                    borderRadius: BorderRadius.circular(25.r),
-                  ),
-                ),
-                SizedBox(
-                  width: 20.0.w,
-                ),
-                Expanded(
-                  child: Column(
-                    children: [
-                      Text(
-                        instructorCourseModel.text,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontFamily: FontPath.poppinsMedium,
-                          fontSize: 16.sp,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          StatefulBuilder(
-                            builder: (BuildContext context, setState) {
-                              return RatingBar.builder(
-                                itemSize: 20.r,
-                                minRating: 1,
-                                itemBuilder: (context, _) => const Icon(
-                                  Icons.star,
-                                  color: Colors.amber,
-                                ),
-                                onRatingUpdate: (rating) {
-                                  setState(() {});
-                                },
-                              );
-                            },
-                          ),
-                          SizedBox(
-                            width: 5.0.w,
-                          ),
-                          Text(
-                            instructorCourseModel.rate,
-                            style: TextStyle(
-                              fontFamily: FontPath.poppinsMedium,
-                              fontSize: 15.00.sp,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 2.0.w),
+      child: InkWell(
+        onTap: (){
+          navigateTo(context, const InstructorCourseDetails());
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsetsDirectional.only(
+                top: 10.00.h,
+                start: 10.00.w,
+                end: 10.00.w,
+              ),
               child: Row(
                 children: [
-                  Expanded(
-                    flex: 1,
-                    child: GestureDetector(
-                      onTap: () {
-                        navigateTo(context, const InstructorCourseDetails());
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Edit',
-                            style: TextStyle(
-                              fontFamily: FontPath.poppinsMedium,
-                              fontSize: 15.sp,
-                              color: Colors.blue,
-                            ),
-                          ),
-                          Image(
-                            width: 25.w,
-                            height: 25.h,
-                            image: const AssetImage(
-                              ImagePath.edit,
-                            ),
-                          ),
-                        ],
+                  Container(
+                    width: 120.w,
+                    height: 120.h,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      image: DecorationImage(
+                        image: AssetImage(
+                           ImagePath.photography,
+                        ),
+                        fit: BoxFit.cover,
                       ),
+                      border: Border.all(
+                        width: 1.w,
+                        color: Colors.grey,
+                      ),
+                      borderRadius: BorderRadius.circular(25.r),
                     ),
                   ),
-                  Expanded(
-                    flex: 2,
-                    child: GestureDetector(
-                      onTap: () {
-                        navigateTo(context, const CourseStudentsScreen());
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Student',
-                            style: TextStyle(
-                              fontFamily: FontPath.poppinsMedium,
-                              fontSize: 15.sp,
-                              color: Colors.blue,
-                            ),
-                          ),
-                          Image(
-                            width: 25.w,
-                            height: 25.h,
-                            image: const AssetImage(
-                              ImagePath.student,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  SizedBox(
+                    width: 20.0.w,
                   ),
-
-                  // Expanded(
-                  //   flex: 2,
-                  //   child: GestureDetector(
-                  //     onTap: () {},
-                  //     child: Row(
-                  //       mainAxisAlignment: MainAxisAlignment.center,
-                  //       children: [
-                  //         Text(
-                  //           'Community',
-                  //           style: TextStyle(
-                  //             fontFamily: FontPath.poppinsMedium,
-                  //             fontSize: 15.sp,
-                  //             color: Colors.blue,
-                  //           ),
-                  //         ),
-                  //         Image(
-                  //           width: 25.w,
-                  //           height: 25.h,
-                  //           image: const AssetImage(
-                  //             ImagePath.comunity,
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          instructorCourseModel.courseTitle!,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontFamily: FontPath.poppinsMedium,
+                            fontSize: 16.sp,
+                          ),
+                        ),
+                        Text(
+                          instructorCourseModel.courseBrief!,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontFamily: FontPath.poppinsMedium,
+                            fontSize: 14.sp,
+                          ),
+                        ),
+                        // Row(
+                        //   children: [
+                        //     StatefulBuilder(
+                        //       builder: (BuildContext context, setState) {
+                        //         return RatingBar.builder(
+                        //           itemSize: 20.r,
+                        //           minRating: 1,
+                        //           itemBuilder: (context, _) => const Icon(
+                        //             Icons.star,
+                        //             color: Colors.amber,
+                        //           ),
+                        //           onRatingUpdate: (rating) {
+                        //             setState(() {});
+                        //           },
+                        //         );
+                        //       },
+                        //     ),
+                        //     SizedBox(
+                        //       width: 5.0.w,
+                        //     ),
+                        //
+                        //   ],
+                        // ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
-          )
-        ],
+            // Expanded(
+            //   child: Padding(
+            //     padding: EdgeInsets.symmetric(horizontal: 2.0.w),
+            //     child: Row(
+            //       children: [
+            //         Expanded(
+            //           flex: 1,
+            //           child: GestureDetector(
+            //             onTap: () {
+            //               navigateTo(context, const InstructorCourseDetails());
+            //             },
+            //             child: Row(
+            //               mainAxisAlignment: MainAxisAlignment.center,
+            //               children: [
+            //                 Text(
+            //                   'Edit',
+            //                   style: TextStyle(
+            //                     fontFamily: FontPath.poppinsMedium,
+            //                     fontSize: 15.sp,
+            //                     color: Colors.blue,
+            //                   ),
+            //                 ),
+            //                 Image(
+            //                   width: 25.w,
+            //                   height: 25.h,
+            //                   image: const AssetImage(
+            //                     ImagePath.edit,
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //         Expanded(
+            //           flex: 2,
+            //           child: GestureDetector(
+            //             onTap: () {
+            //               navigateTo(context, const CourseStudentsScreen());
+            //             },
+            //             child: Row(
+            //               mainAxisAlignment: MainAxisAlignment.center,
+            //               children: [
+            //                 Text(
+            //                   'Student',
+            //                   style: TextStyle(
+            //                     fontFamily: FontPath.poppinsMedium,
+            //                     fontSize: 15.sp,
+            //                     color: Colors.blue,
+            //                   ),
+            //                 ),
+            //                 Image(
+            //                   width: 25.w,
+            //                   height: 25.h,
+            //                   image: const AssetImage(
+            //                     ImagePath.student,
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //
+            //         // Expanded(
+            //         //   flex: 2,
+            //         //   child: GestureDetector(
+            //         //     onTap: () {},
+            //         //     child: Row(
+            //         //       mainAxisAlignment: MainAxisAlignment.center,
+            //         //       children: [
+            //         //         Text(
+            //         //           'Community',
+            //         //           style: TextStyle(
+            //         //             fontFamily: FontPath.poppinsMedium,
+            //         //             fontSize: 15.sp,
+            //         //             color: Colors.blue,
+            //         //           ),
+            //         //         ),
+            //         //         Image(
+            //         //           width: 25.w,
+            //         //           height: 25.h,
+            //         //           image: const AssetImage(
+            //         //             ImagePath.comunity,
+            //         //           ),
+            //         //         ),
+            //         //       ],
+            //         //     ),
+            //         //   ),
+            //         // ),
+            //       ],
+            //     ),
+            //   ),
+            // )
+          ],
+        ),
       ),
     );
 
@@ -1232,6 +1243,23 @@ void navigateTo(context, Widget widget) => Navigator.push(
         builder: (context) => widget,
       ),
     );
+
+void navigateAndFinish(BuildContext context, widget) =>
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => widget)
+    );
+
+void navigateAndDeleteAll(BuildContext context, Widget page) async {
+  Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => page),
+          (Route<dynamic> route) => false);
+}
+
+/// 1 2 3
+/// 1 -> 2
+/// Stack ::  6
+
+
 String uid = 'zKiNeGjyj0amFpea9uNn';
 PreferredSizeWidget defaultAppbar({
   required BuildContext context,
@@ -1262,3 +1290,35 @@ Widget defaulttextbutton({
       ),
     );
 
+
+void showToast({
+  required String text,
+  required ToastStates state,
+}) =>
+    Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.SNACKBAR,
+      timeInSecForIosWeb: 2,
+      backgroundColor: chooseToastColor(state),
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+
+enum ToastStates { SUCCESS, ERROR, WARNING }
+
+Color chooseToastColor(ToastStates state) {
+  Color color;
+  switch (state) {
+    case ToastStates.SUCCESS:
+      color = Colors.green;
+      break;
+    case ToastStates.ERROR:
+      color = Colors.red;
+      break;
+    case ToastStates.WARNING:
+      color = Colors.amber;
+      break;
+  }
+  return color;
+}

@@ -3,9 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation_project/core/app_theme/app_colors.dart';
 import 'package:graduation_project/core/assets_path/font_path.dart';
 import 'package:graduation_project/core/assets_path/images_path.dart';
+import 'package:graduation_project/core/cash_helper.dart';
+import 'package:graduation_project/core/constants.dart';
+import 'package:graduation_project/logic/instructor/instructor%20cubit.dart';
 import 'package:graduation_project/models/settings_model.dart';
 import 'package:graduation_project/presentation/screens/about_us_screen.dart';
 import 'package:graduation_project/presentation/screens/home_screens/notification_screen.dart';
+import 'package:graduation_project/presentation/screens/login_screen.dart';
 import 'package:graduation_project/presentation/screens/slide_bar_screen.dart';
 import 'package:graduation_project/presentation/widgets/components.dart';
 
@@ -20,36 +24,24 @@ class MyAccountScreenInstructor extends StatefulWidget {
 
 class _MyAccountScreenInstructorState extends State<MyAccountScreenInstructor> {
   List<SettingsAccountModel> settingsAccountModelList = [
-    SettingsAccountModel(
-      title: 'General Information',
-      textColor: Colors.black,
-      iconColor: Colors.blue,
-    ),
-    SettingsAccountModel(
-      title: 'Security',
-      textColor: Colors.black,
-      iconColor: Colors.blue,
-    ),
+
     SettingsAccountModel(
       title: 'About Us',
       textColor: Colors.black,
       iconColor: Colors.blue,
     ),
     SettingsAccountModel(
-      title: 'Close Account',
+      title: 'Log out',
       textColor: Colors.red,
       iconColor: Colors.red,
     ),
-    SettingsAccountModel(
-      title: 'Upgrade Account',
-      textColor: Colors.blue,
-      iconColor: Colors.blue,
-    ),
+
   ];
   int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    var cubit = InstructorCubit.get(context);
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       // drawer: Drawer(
@@ -282,9 +274,10 @@ class _MyAccountScreenInstructorState extends State<MyAccountScreenInstructor> {
                     ),
                     Center(
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Pela David',
+                             "${cubit.instructorDataModel!.firstName} ${cubit.instructorDataModel!.lastName}",
                             style: TextStyle(
                               fontSize: 20.sp,
                               fontFamily: FontPath.poppinsBold,
@@ -292,42 +285,14 @@ class _MyAccountScreenInstructorState extends State<MyAccountScreenInstructor> {
                             ),
                           ),
                           Text(
-                            'PelaDavid33@gmail.com',
+                            "${cubit.instructorDataModel!.email}",
                             style: TextStyle(
                               fontSize: 10.sp,
                               fontFamily: FontPath.poppinsMedium,
                               color: Colors.black,
                             ),
                           ),
-                          Expanded(
-                            child: Row(
-                              children: [
-                                TextButton(
-                                  onPressed: () {},
-                                  child: Text(
-                                    'Update Photo',
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontFamily: FontPath.poppinsBold,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 20.0.w,
-                                ),
-                                TextButton(
-                                  onPressed: () {},
-                                  child: Text(
-                                    'Edit',
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontFamily: FontPath.poppinsBold,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
+
                         ],
                       ),
                     )
@@ -346,17 +311,32 @@ class _MyAccountScreenInstructorState extends State<MyAccountScreenInstructor> {
                 ),
               ),
               SizedBox(
-                height: 10.00.h,
+                height: 20.00.h,
               ),
               Expanded(
                 child: ListView.separated(
                   physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, index) => settingsAccountItem(
                       context, settingsAccountModelList[index], () {
-                    navigateTo(context, const AboutUsScreen());
+                        /// about us function
+                   if(index == 0){
+                     navigateTo(context, const AboutUsScreen());
+                   }
+                   /// logout function
+                   if(index == 1){
+                    cubit.instructorDataModel = null;
+                    Instructor_id = null;
+                    instructortoken = null;
+                    CacheHelper.removeData(key: "instructortoken");
+                    CacheHelper.removeData(key: "instructor_id");
+
+                    navigateAndFinish(context, const LoginScreen(userType: "instructor"));
+
+                   }
+
                   }),
                   separatorBuilder: (context, index) => SizedBox(
-                    height: 20.h,
+                    height: 10.h,
                   ),
                   itemCount: settingsAccountModelList.length,
                 ),
@@ -366,5 +346,7 @@ class _MyAccountScreenInstructorState extends State<MyAccountScreenInstructor> {
         ),
       ),
     );
+
+
   }
 }
